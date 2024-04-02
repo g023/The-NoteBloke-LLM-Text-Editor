@@ -1,0 +1,387 @@
+[gd_scene load_steps=16 format=3 uid="uid://cxjqdxv80ibff"]
+
+[ext_resource type="Script" path="res://MAIN_NODE.gd" id="1_vhvoc"]
+[ext_resource type="Script" path="res://TextEdit_main.gd" id="3_mygxf"]
+[ext_resource type="Script" path="res://Button_open.gd" id="3_uo016"]
+[ext_resource type="Script" path="res://Button_send_message.gd" id="4_3qb64"]
+[ext_resource type="Script" path="res://Button_save.gd" id="4_ami37"]
+[ext_resource type="Script" path="res://FileDialog_open.gd" id="4_amwya"]
+[ext_resource type="StyleBox" uid="uid://c3vlqfr3mexej" path="res://btn_styles/StyleBox_btn_normal.tres" id="4_j68jn"]
+[ext_resource type="StyleBox" uid="uid://bqlwg2slua7uv" path="res://btn_styles/StyleBox_btn_hover.tres" id="5_6bpgp"]
+[ext_resource type="Script" path="res://VBoxContainer_notifications.gd" id="8_047xu"]
+[ext_resource type="Script" path="res://FileDialog_save.gd" id="8_i0gkk"]
+[ext_resource type="Script" path="res://TextEdit_response.gd" id="8_oxrev"]
+[ext_resource type="Script" path="res://Label_notification_template.gd" id="9_liw27"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r3q1v"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_mmnds"]
+number_color = Color(0.933333, 0, 0, 1)
+symbol_color = Color(0.866667, 0, 0.32549, 1)
+function_color = Color(0, 0.443137, 0.0666667, 1)
+member_variable_color = Color(1, 0.603922, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahj04"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.156863, 0.258824, 0.560784, 0.752941)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MAIN_NODE" type="Node2D"]
+script = ExtResource("1_vhvoc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 800
+
+[node name="VBoxContainer_editor" type="VBoxContainer" parent="CanvasLayer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit_main" type="TextEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/background_color = Color(1, 1, 1, 0.752941)
+theme_override_colors/font_color = Color(0.298039, 0.298039, 0.298039, 1)
+theme_override_colors/font_selected_color = Color(0.764706, 0.486275, 0, 1)
+theme_override_colors/font_readonly_color = Color(0.376471, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.713726, 0.713726, 0.713726, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/current_line_color = Color(0.909804, 0.929412, 0.972549, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/word_highlighted_color = Color(0, 0.784314, 0.501961, 1)
+theme_override_colors/search_result_color = Color(0, 0.501961, 0, 1)
+theme_override_colors/search_result_border_color = Color(0.572549, 0, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/caret_width = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r3q1v")
+placeholder_text = "Open a text file to start talking to it."
+deselect_on_focus_loss_enabled = false
+wrap_mode = 1
+caret_blink = true
+syntax_highlighter = SubResource("CodeHighlighter_mmnds")
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+script = ExtResource("3_mygxf")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/TextEdit_main"]
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CheckBox_use_openai" type="CheckBox" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "use openai"
+
+[node name="TextEdit_oai_key" type="LineEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "openai key"
+caret_blink = true
+secret = true
+
+[node name="TextEdit_oai_key_bck" type="TextEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "paste openai key here"
+
+[node name="Label2" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "max tokens:"
+
+[node name="TextEdit_maxtokens" type="LineEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1000"
+placeholder_text = "max tokens"
+caret_blink = true
+
+[node name="Label5" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "open"
+script = ExtResource("3_uo016")
+
+[node name="Label3" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button_save" type="Button" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "save"
+script = ExtResource("4_ami37")
+
+[node name="Label4" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/HSplitContainer/VBoxContainer_editor/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer_control" type="VBoxContainer" parent="CanvasLayer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HSplitContainer/VBoxContainer_control"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.0235294, 0.164706, 0.360784, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="TextEdit_assistant" type="TextEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.329412, 0.741176, 0.396078, 1)
+text = "You are the best expert in writing composition and beautiful looking code. You will be given a command which you will complete to the best of your ability.  You will return just the complete optimized version of that code."
+placeholder_text = "assistant"
+wrap_mode = 1
+caret_blink = true
+
+[node name="Button" type="Button" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "update assi"
+
+[node name="TextEdit_prompt" type="TextEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.635294, 0.407843, 1)
+text = "command: You will edit the selected text to best optimize its code for compactness.
+
+```selected text
+{{{SELECTED}}}
+```
+
+The following is more information to better process the selected text, but I would not like to have it output.
+
+The file path is: {{{FILE_PATH}}}
+A short bit of the part that came before  the SELECTED part:
+```{{{PRE}}}```
+A short bit of the part that came after  the SELECTED part:
+```{{{POST}}}```
+"
+placeholder_text = "prompt"
+wrap_mode = 1
+caret_blink = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Button_send_message" type="Button" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("4_j68jn")
+theme_override_styles/hover = ExtResource("5_6bpgp")
+text = ">> send message >>"
+script = ExtResource("4_3qb64")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/Button_send_message"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+text = "  The Response:"
+threaded = true
+
+[node name="TextEdit_response" type="TextEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/background_color = Color(0, 0, 0, 1)
+placeholder_text = "Click the 'send message' button and see the response here"
+wrap_mode = 1
+caret_blink = true
+script = ExtResource("8_oxrev")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/TextEdit_response"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "  pre mem"
+
+[node name="Label2" type="Label" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "  post mem"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="TextEdit_mem_pre" type="LineEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.709804, 0, 0.258824, 1)
+text = "50"
+caret_blink = true
+
+[node name="TextEdit_mem_post" type="LineEdit" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.709804, 0, 0.258824, 1)
+text = "50"
+caret_blink = true
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="FileDialog_open" type="FileDialog" parent="CanvasLayer"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(800, 550)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+script = ExtResource("4_amwya")
+
+[node name="FileDialog_save" type="FileDialog" parent="CanvasLayer"]
+initial_position = 1
+size = Vector2i(800, 550)
+ok_button_text = "Save"
+access = 2
+script = ExtResource("8_i0gkk")
+
+[node name="VBoxContainer_notifications" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -242.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("8_047xu")
+
+[node name="Label_notification_template" type="Label" parent="CanvasLayer/VBoxContainer_notifications"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ahj04")
+text = "This is a test to see if anyone is paying attention to whales that like to swim in the vacant ocean. Are we that vapid that the only joys we can derive are from delusions of existential chaos? The horse people of gimboo gimboo say hi from the tropical island of wut? Why are you looking at this? Nothing to see here.
+This should not be seen ever."
+autowrap_mode = 3
+script = ExtResource("9_liw27")
+
+[node name="Button_close" type="Button" parent="CanvasLayer/VBoxContainer_notifications/Label_notification_template"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -28.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 28.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 10
+text = "X"
+
+[node name="Label_notification_template2" type="Label" parent="CanvasLayer/VBoxContainer_notifications"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ahj04")
+text = "This is a test to see if anyone is paying attention to whales that like to swim in the vacant ocean. Are we that vapid that the only joys we can derive are from delusions of existential chaos? The horse people of gimboo gimboo say hi from the tropical island of wut? Why are you looking at this? Nothing to see here.
+This should not be seen ever."
+autowrap_mode = 3
+script = ExtResource("9_liw27")
+
+[node name="Button_close" type="Button" parent="CanvasLayer/VBoxContainer_notifications/Label_notification_template2"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -28.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 28.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 10
+text = "X"
+
+[connection signal="button_up" from="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/Button_send_message" to="CanvasLayer/HSplitContainer/VBoxContainer_control/ColorRect/VBoxContainer/VSplitContainer/VBoxContainer2/Button_send_message" method="_on_button_up"]
+[connection signal="button_up" from="CanvasLayer/VBoxContainer_notifications/Label_notification_template/Button_close" to="CanvasLayer/VBoxContainer_notifications/Label_notification_template" method="_on_button_close_button_up"]
+[connection signal="button_up" from="CanvasLayer/VBoxContainer_notifications/Label_notification_template2/Button_close" to="CanvasLayer/VBoxContainer_notifications/Label_notification_template2" method="_on_button_close_button_up"]
